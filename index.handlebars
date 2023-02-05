@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Echost</title>
+</head>
+
+<body>
+    <h1>Welcome to Echost</h1>
+    <div>
+        <em>Your number one file hosting provider since 1999.</em>
+    </div>
+    {{#if isLoggedIn}}
+    <p>You are <b>logged in</b> as <b>{{{userName}}}</b></p>
+    <form action="/upload" method="post">
+        <p>
+            <label>File: <input type="file" name="file"></label>
+        </p>
+        <p>
+            <input type="submit" value="Upload">
+        </p>
+        <input type="hidden" name="csrf" value="{{{ csrfToken }}}">
+    </form>
+    <form action="/logout" method="post">
+        <p>
+            <input type="submit" value="Log Out">
+        </p>
+        <input type="hidden" name="csrf" value="{{{ csrfToken }}}">
+    </form>
+    {{else}}
+    <form action="/login" method="post">
+        <p>
+            <label>Username: <input type="text" name="username"></label>
+        </p>
+        <p>
+            <label>Password: <input type="password" name="password"></label>
+        </p>
+        <p>
+            <input type="submit" value="Log In">
+        </p>
+    </form>
+    {{/if}}
+
+</body>
+
+</html>

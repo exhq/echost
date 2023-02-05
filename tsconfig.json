@@ -1,0 +1,8 @@
+{
+    "target": "ES2017",
+    "compilerOptions": {
+        "module": "node16",
+        "esModuleInterop": true,
+        "target": "ES2017"
+    }
+}
