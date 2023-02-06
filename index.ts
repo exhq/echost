@@ -7,6 +7,9 @@ import bcrypt from 'bcrypt';
 import { default as cookieParser } from 'cookie-parser';
 import bodyParser from 'body-parser';
 
+//port
+const usedport = 8080
+
 const createTemplate = async (filename: string) => Handlebars.compile(await readFile(filename, { encoding: 'utf-8' }));
 const indexTemplate = await createTemplate('index.handlebars');
 const app = express();
@@ -74,4 +77,4 @@ app.get('/', (req, res) => {
     }));
 });
 
-app.listen(8080, () => console.log('Started'));
+app.listen(usedport, () => console.log('Started with port ' + usedport));
