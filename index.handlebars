@@ -5,14 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Echost</title>
+    <title>Welcome to Echost</title> 
+    <link rel="stylesheet" href="gaming.css">
 </head>
 
 <body>
-    <h1>Welcome to Echost</h1>
-    <div>
-        <em>Your number one file hosting provider since 1984.</em>
-    </div>
+        <div id="agony">    
+            <h1 id="child">Welcome to Echost</h1>
+            <h2 id="child">Your number one file hosting provider since 1984.</h2>
+        </div>
+
     {{#if isLoggedIn}}
     <p>You are <b>logged in</b> as <b>{{{userName}}}</b></p>
     <form action="/upload" method="post">

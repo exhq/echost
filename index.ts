@@ -29,6 +29,7 @@ declare global {
 }
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use((req, res, next) => {
     const sessionCookie = req.cookies?.['Session-Cookie'];
     console.log(sessionCookie);
@@ -77,4 +78,5 @@ app.get('/', (req, res) => {
     }));
 });
 
+app.use(express.static('static'))
 app.listen(usedport, () => console.log('Started with port ' + usedport));

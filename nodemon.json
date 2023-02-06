@@ -1,0 +1,5 @@
+{
+    "watch": ["."],
+    "ext": "ts,json,handlebars",
+    "exec": "ts-node --esm ./index.ts"      
+  }
