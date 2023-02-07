@@ -6,17 +6,15 @@ import { DatabaseHandler } from './database.js'
 import bcrypt from 'bcrypt';
 import { default as cookieParser } from 'cookie-parser';
 import bodyParser from 'body-parser';
+import { default as echostConfig } from './config.js';
 
-//port
-const usedport = 8080
-
+const usedport = echostConfig.usedPort;
+console.log(echostConfig)
 const createTemplate = async (filename: string) => Handlebars.compile(await readFile(filename, { encoding: 'utf-8' }));
 const indexTemplate = await createTemplate('index.handlebars');
 const app = express();
 const database = await DatabaseHandler.connect();
 await database.createTables();
-await database.createUser('echo', await bcrypt.hash('blah', 10));
-console.log('Password hash: ' + await database.getPasswordHash('echo'))
 
 const csrfTokens = {};
 const sessions = {};
@@ -38,7 +36,7 @@ app.use((req, res, next) => {
 });
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
-    if (!username || !password) {
+    if (!username || !password || req.loggedInUser) {
         res.redirect(400, '/');
         return;
     }
@@ -53,6 +51,26 @@ app.post('/login', async (req, res) => {
     res.cookie('Session-Cookie', sessionCookie);
     res.redirect('/');
 });
+
+if (echostConfig.openRegistrations) {
+    app.post('/register', async (req, res) => {
+        const { username, password } = req.body;
+        if (!username || !password || req.loggedInUser) {
+            res.redirect(400, '/');
+            return;
+        }
+        const passwordHash = await bcrypt.hash(password, 10);
+        if (await database.getPasswordHash(username)) {
+            res.redirect(400, '/')
+            return
+        }
+        await database.createUser(username, passwordHash);
+        const sessionCookie = nanoid();
+        sessions[sessionCookie] = username;
+        res.cookie('Session-Cookie', sessionCookie);
+        res.redirect('/');
+    });
+}
 const verifyCSRF: RequestHandler = (req, res, next) => {
     const csrfToken = req.body['csrf'];
     if (!csrfToken || csrfTokens[csrfToken] !== req.loggedInUser) {

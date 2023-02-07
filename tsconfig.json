@@ -1,8 +1,9 @@
 {
     "target": "ES2017",
     "compilerOptions": {
-        "module": "node16",
+        "module": "NodeNext",
         "esModuleInterop": true,
-        "target": "ES2017"
+        "target": "ESNext",
+        "resolveJsonModule": true
     }
 }

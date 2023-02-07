@@ -1,69 +1,95 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Quicksand&display=swap");
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html {
-    background-color: brown;
-    font-family: quicksand;
-
+  background-color: brown;
+  font-family: quicksand;
+  --button-color: #4caf50;
+  --hover-button-color: #337535;
 }
 
-strong, b {
-    color: aqua;
+body.displayregister {
+  --button-color: #264f91;
+  --hover-button-color: #10284d;
+}
+
+strong,
+b {
+  color: aqua;
 }
 
 .hero {
-    margin: auto;
-    width: 50%;
-    padding: 10px;
-    text-align: center;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+  text-align: center;
 }
 
 #hero-image {
-    width: 100%;
-    border-radius: 0.2em;
+  max-width: 100%;
+  width: 20em;
+  border-radius: 0.2em;
 }
 
-.hero>* {
-    text-align: center;
+.hero > * {
+  text-align: center;
 }
 
 input::placeholder,
 input {
-    text-align: center;
+  text-align: center;
 }
 
 #logout {
-    margin: 2%;
-    position: absolute;
-    right: 0;
-    bottom: 0;
+  margin: 2%;
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 
 #content {
-    margin: 0 auto;
-    width: fit-content;
+  margin: 0 auto;
+  width: fit-content;
 }
 
-input {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+.hidden {
+  display: none;
 }
 
-#content input {
-    width: 100%;
-
+input,
+#swapButton {
+  background-color: var(--button-color);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition: 0.2s;
 }
 
-input:hover {
-    transition: 0.2s;
-    background-color: #337535;
+input[type="submit"]:not(.logout-button),
+#swapButton {
+  width: 100%;
+}
+
+input:hover,
+#swapButton:hover {
+  background-color: var(--hover-button-color);
+}
+
+.displayregister #login {
+  display: none;
+}
+
+#register {
+  display: none;
+}
+
+.displayregister #register {
+  display: block;
 }
