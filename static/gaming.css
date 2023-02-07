@@ -1,12 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
 html{
     background-color: brown;
 }
+strong{
+    color: aqua;
+}
 #agony{
+    font-family: quicksand;
     margin: auto;
     width: 50%;
-    border: 3px solid green;
     padding: 10px;
+    text-align: center;
+}
+input::placeholder, input{
+    text-align: center;
 }
 #child{
     text-align: center;
+}
+#dicks{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    border-radius: 2%;
+}
+#logout{
+    margin: 2%;
+    position: absolute;
+    right:    0;
+    bottom:   0;
+}
+input{
+    background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+input:hover{
+    transition: 0.2s;
+    background-color: #337535;
 }

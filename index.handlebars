@@ -10,16 +10,21 @@
 </head>
 
 <body>
-        <div id="agony">    
-            <h1 id="child">Welcome to Echost</h1>
-            <h2 id="child">Your number one file hosting provider since 1984.</h2>
+        <div id="agony">   
+            <img id="dicks" src="./dicks.png" alt="">
+            <br> 
+            <h1 id="child">Echost</h1>
+            <h2 id="child">A <strong>shitty</strong> self-hosted file upload service</h2>
         </div>
 
     {{#if isLoggedIn}}
+    <div id="agony">
+
+    
     <p>You are <b>logged in</b> as <b>{{{userName}}}</b></p>
     <form action="/upload" method="post">
         <p>
-            <label>File: <input type="file" name="file"></label>
+            <input type="file" name="file">
         </p>
         <p>
             <input type="submit" value="Upload">
@@ -28,22 +33,25 @@
     </form>
     <form action="/logout" method="post">
         <p>
-            <input type="submit" value="Log Out">
+            <input id="logout" type="submit" value="Log Out">
         </p>
         <input type="hidden" name="csrf" value="{{{ csrfToken }}}">
     </form>
+</div>
     {{else}}
+    <div id="agony">
     <form action="/login" method="post">
         <p>
-            <label>Username: <input type="text" name="username"></label>
+           <input placeholder="Username" type="text" name="username">
         </p>
         <p>
-            <label>Password: <input type="password" name="password"></label>
+            <input type="password" placeholder="Password" name="password">
         </p>
         <p>
             <input type="submit" value="Log In">
         </p>
     </form>
+    </div>
     {{/if}}
 
 </body>
