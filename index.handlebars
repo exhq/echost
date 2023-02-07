@@ -1,58 +1,61 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Echost</title> 
-    <link rel="stylesheet" href="gaming.css">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to Echost</title>
+    <link rel="stylesheet" href="gaming.css" />
 </head>
 
 <body>
-        <div id="agony">   
-            <img id="dicks" src="./dicks.png" alt="">
-            <br> 
-            <h1 id="child">Echost</h1>
-            <h2 id="child">A <strong>shitty</strong> self-hosted file upload service</h2>
-        </div>
+    <div class="hero">
+        <img id="hero-image" src="./dicks.png" alt="" />
+        <br />
+        <h1>Echost</h1>
+        <h2>A
+            <strong>shitty</strong>
+            self-hosted file upload service
+        </h2>
+    </div>
+
+    <div id="content">
+        {{#if isLoggedIn}}
+
+        <p>You are <b>logged in</b> as <b>{{{userName}}}</b></p>
+        <form action="/upload" method="post">
+            <p>
+                <input type="file" name="file" />
+            </p>
+            <p>
+                <input type="submit" value="Upload" />
+            </p>
+            <input type="hidden" name="csrf" value="{{{csrfToken}}}" />
+        </form>
+        {{else}}
+        <form action="/login" method="post">
+            <p>
+                <input placeholder="Username" type="text" name="username" />
+            </p>
+            <p>
+                <input type="password" placeholder="Password" name="password" />
+            </p>
+            <p>
+                <input type="submit" value="Log In" />
+            </p>
+        </form>
+        {{/if}}
+    </div>
 
     {{#if isLoggedIn}}
-    <div id="agony">
-
-    
-    <p>You are <b>logged in</b> as <b>{{{userName}}}</b></p>
-    <form action="/upload" method="post">
-        <p>
-            <input type="file" name="file">
-        </p>
-        <p>
-            <input type="submit" value="Upload">
-        </p>
-        <input type="hidden" name="csrf" value="{{{ csrfToken }}}">
-    </form>
     <form action="/logout" method="post">
         <p>
-            <input id="logout" type="submit" value="Log Out">
+            <input id="logout" type="submit" value="Log Out" />
         </p>
-        <input type="hidden" name="csrf" value="{{{ csrfToken }}}">
+        <input type="hidden" name="csrf" value="{{{csrfToken}}}" />
     </form>
-</div>
-    {{else}}
-    <div id="agony">
-    <form action="/login" method="post">
-        <p>
-           <input placeholder="Username" type="text" name="username">
-        </p>
-        <p>
-            <input type="password" placeholder="Password" name="password">
-        </p>
-        <p>
-            <input type="submit" value="Log In">
-        </p>
-    </form>
-    </div>
     {{/if}}
+
 
 </body>
 
