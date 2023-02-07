@@ -43,7 +43,10 @@
           swapButton.innerText = 'Log In Instead' } }
         </script>
         <div>
+          {{#if registerperm}}
           <button id="swapButton" onclick="swap()">Register Instead</button>
+          {{/if}}
+
         </div>
         <div id="loginwrapper">
           <div id="login">

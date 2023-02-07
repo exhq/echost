@@ -90,9 +90,10 @@ app.get('/', (req, res) => {
     const csrfToken = nanoid();
     csrfTokens[csrfToken] = req.loggedInUser;
     res.end(indexTemplate({
-        isLoggedIn: !!req.loggedInUser,
+        isLoggedIn: !!req.loggedInUser,     
         userName: req.loggedInUser,
         csrfToken: csrfToken,
+        registerperm: echostConfig.openRegistrations
     }));
 });
 
