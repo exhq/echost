@@ -19,6 +19,9 @@ export class DatabaseHandler {
         await this.database.run(`
             CREATE TABLE IF NOT EXISTS users (username TEXT, passwordHash TEXT);
         `);
+        await this.database.run(`
+            CREATE TABLE IF NOT EXISTS files (owner TEXT, filename TEXT, path TEXT);
+        `)
     }
 
     async createUser(username: string, passwordHash: string): Promise<void> {
@@ -27,12 +30,40 @@ export class DatabaseHandler {
         `, [username, passwordHash])
     }
 
+    async createFile(owner: string, filename: string, path: string): Promise<void> {
+        await this.database.run(`
+            INSERT INTO files (owner, filename, path) VALUES (?,?,?);
+        `, [owner, filename, path])
+    }
+
+    async renameFile(owner: string, path: string, newFilename: string): Promise<void> {
+        await this.database.run(`
+            UPDATE files SET filename = ? WHERE owner = ? AND path = ?; 
+        `, [newFilename, owner, path]);
+    }
+
+    async deleteFile(owner: string, path: string): Promise<void> {
+        await this.database.run(`
+            DELETE FROM files WHERE owner = ? AND path = ?;
+        `, [owner, path]);
+    }
+
+    async getPathForFileName(owner: string, filename: string): Promise<string | null> {
+        let row = await this.database.get(
+            "SELECT path FROM files WHERE owner = ? and filename = ?;",
+            [owner, filename]
+        );
+        if (!row) {
+            return null;
+        }
+        return row['path'];
+    }
+
     async getPasswordHash(username: string): Promise<string | null> {
         let row = await this.database.get(
             "SELECT passwordHash FROM users WHERE username = ?;",
             [username]
         );
-        console.log(row);
         if (!row) {
             return null;
         }

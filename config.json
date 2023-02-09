@@ -1,4 +1,5 @@
 {
     "openRegistrations": true,
-    "usedPort": 8080
+    "usedPort": 8080,
+    "fileStorage": "temp"
 }
