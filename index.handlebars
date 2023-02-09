@@ -1,98 +1,99 @@
 <html lang="en">
 
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Welcome to Echost</title>
-    <link rel="stylesheet" href="gaming.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to Echost</title>
+  <link rel="stylesheet" href="gaming.css" />
+</head>
 
-  <body>
-    <div class="hero">
-      <img id="hero-image" src="./dicks.png" alt="" />
-      <br />
-      <h1>Echost</h1>
-      <h2>A
-        <strong>shitty</strong>
-        self-hosted file upload service
-      </h2>
-    </div>
+<body>
+  <div class="hero">
+    <img id="hero-image" src="./dicks.png" alt="" />
+    <br />
+    <h1>Echost</h1>
+    <h2>A
+      <strong>shitty</strong>
+      self-hosted file upload service
+    </h2>
+  </div>
 
-    <div id="content">
-      {{#if isLoggedIn}}
-
-        <p>You are <b>logged in</b> as <b>{{{userName}}}</b></p>
-        <form action="/upload" method="post">
-          <p>
-            <input type="file" name="file" />
-          </p>
-          <p>
-            <input type="submit" value="Upload" />
-          </p>
-          <input type="hidden" name="csrf" value="{{{csrfToken}}}" />
-        </form>
-      {{else}}
-
-        <script>
-          var currentlyLoggingIn = false; function swap() { if
-          (currentlyLoggingIn) { currentlyLoggingIn = false;
-          document.body.classList.remove('displayregister');
-          swapButton.innerText = 'Register Instead' } else { currentlyLoggingIn
-          = true; document.body.classList.add('displayregister');
-          swapButton.innerText = 'Log In Instead' } }
-        </script>
-        <div>
-          {{#if registerperm}}
-          <button id="swapButton" onclick="swap()">Register Instead</button>
-          {{/if}}
-
-        </div>
-        <div id="loginwrapper">
-          <div id="login">
-            <form action="/login" method="post">
-              <p>
-                <input placeholder="Username" type="text" name="username" />
-              </p>
-              <p>
-                <input type="password" placeholder="Password" name="password" />
-              </p>
-              <p>
-                <input type="submit" value="Log In" />
-              </p>
-            </form>
-          </div>
-          <div id="register">
-            <form action="/register" method="post">
-              <p>
-                <input placeholder="Username" type="text" name="username" />
-              </p>
-              <p>
-                <input type="password" placeholder="Password" name="password" />
-              </p>
-              <p>
-                <input type="submit" value="Register" />
-              </p>
-            </form>
-          </div>
-        </div>
-      {{/if}}
-    </div>
-
+  <div id="content">
     {{#if isLoggedIn}}
-      <form action="/logout" method="post">
-        <p>
-          <input
-            id="logout"
-            class="logout-button"
-            type="submit"
-            value="Log Out"
-          />
-        </p>
-        <input type="hidden" name="csrf" value="{{{csrfToken}}}" />
-      </form>
-    {{/if}}
 
-  </body>
+    <p>You are <b>logged in</b> as <b>{{{userName}}}</b></p>
+    <form action="/upload" method="post">
+      <p>
+        <input type="file" name="file" />
+      </p>
+      <p>
+        <input type="submit" value="Upload" />
+      </p>
+      <input type="hidden" name="csrf" value="{{{csrfToken}}}" />
+    </form>
+    {{else}}
+
+    <script>
+      var currentlyLoggingIn = false; function swap() {
+        if
+          (currentlyLoggingIn) {
+          currentlyLoggingIn = false;
+          document.body.classList.remove('displayregister');
+          swapButton.innerText = 'Register Instead'
+        } else {
+          currentlyLoggingIn = true;
+          document.body.classList.add('displayregister');
+          swapButton.innerText = 'Log In Instead'
+        }
+      }
+    </script>
+    <div>
+      {{#if openRegistrations}}
+      <button id="swapButton" onclick="swap()">Register Instead</button>
+      {{/if}}
+
+    </div>
+    <div id="loginwrapper">
+      <div id="login">
+        <form action="/login" method="post">
+          <p>
+            <input placeholder="Username" type="text" name="username" />
+          </p>
+          <p>
+            <input type="password" placeholder="Password" name="password" />
+          </p>
+          <p>
+            <input type="submit" value="Log In" />
+          </p>
+        </form>
+      </div>
+      <div id="register">
+        <form action="/register" method="post">
+          <p>
+            <input placeholder="Username" type="text" name="username" />
+          </p>
+          <p>
+            <input type="password" placeholder="Password" name="password" />
+          </p>
+          <p>
+            <input type="submit" value="Register" />
+          </p>
+        </form>
+      </div>
+    </div>
+    {{/if}}
+  </div>
+
+  {{#if isLoggedIn}}
+  <form action="/logout" method="post">
+    <p>
+      <input id="logout" class="logout-button" type="submit" value="Log Out" />
+    </p>
+    <input type="hidden" name="csrf" value="{{{csrfToken}}}" />
+  </form>
+  {{/if}}
+
+</body>
 
 </html>

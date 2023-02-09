@@ -93,7 +93,7 @@ app.get('/', (req, res) => {
         isLoggedIn: !!req.loggedInUser,     
         userName: req.loggedInUser,
         csrfToken: csrfToken,
-        registerperm: echostConfig.openRegistrations
+        openRegistrations: echostConfig.openRegistrations
     }));
 });
 
