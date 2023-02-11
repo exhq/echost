@@ -3,12 +3,14 @@
 * {
   box-sizing: border-box;
 }
-
+p{
+  color: #fafdff;
+}
 html {
-  background-color: brown;
+  background-color: #16171a;
   font-family: quicksand;
-  --button-color: #4caf50;
-  --hover-button-color: #337535;
+  --button-color: #bfff3c;
+  --hover-button-color: #10d275;
 }
 
 body.displayregister {
@@ -16,9 +18,22 @@ body.displayregister {
   --hover-button-color: #10284d;
 }
 
+.infowrapper{
+  text-align: center;
+}
+.info{
+  text-decoration: none;
+  color: #94216a;
+  font-size: 150%;
+}
+.info:hover{
+  transition: 0.5s;
+  color: #ff80a4;
+}
+
 strong,
 b {
-  color: aqua;
+  color: #ff80a4;
 }
 
 .hero {
@@ -40,6 +55,7 @@ b {
 
 input::placeholder,
 input {
+  color: #16171a;
   text-align: center;
 }
 
@@ -63,7 +79,7 @@ input,
 #swapButton {
   background-color: var(--button-color);
   border: none;
-  color: white;
+  color: #16171a;
   padding: 15px 32px;
   text-align: center;
   text-decoration: none;
@@ -92,4 +108,11 @@ input:hover,
 
 .displayregister #register {
   display: block;
+}
+h2{
+  color: #fafdff;
+}
+
+h1{
+  color: #ffffff;
 }

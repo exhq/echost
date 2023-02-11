@@ -16,6 +16,7 @@ const usedport = echostConfig.usedPort;
 console.log(echostConfig)
 const createTemplate = async (filename: string) => Handlebars.compile(await readFile(filename, { encoding: 'utf-8' }));
 const indexTemplate = await createTemplate('index.handlebars');
+const faqTemplate = await createTemplate('faq.handlebars');
 const app = express();
 const database = await DatabaseHandler.connect();
 await database.createTables();
@@ -130,6 +131,9 @@ app.get('/', (req, res) => {
         openRegistrations: echostConfig.openRegistrations
     }));
 });
-
+app.get('/faq', (req, res) => {
+    res.setHeader('content-type', 'text/html')
+    res.end(faqTemplate({}));
+});
 app.use(express.static('static'))
 app.listen(usedport, () => console.log('Started with port ' + usedport));
