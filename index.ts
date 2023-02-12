@@ -45,6 +45,10 @@ app.post('/login', upload.none(), async (req, res) => {
         return;
     }
     const passwordHash = await database.getPasswordHash(username);
+    if (!passwordHash) {
+        res.redirect(400, '/')
+        return
+    }
     const isCorrectPassword = await bcrypt.compare(password, passwordHash);
     if (!isCorrectPassword) {
         res.redirect(400, '/');
