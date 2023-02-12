@@ -100,6 +100,7 @@ app.post('/logout', upload.none(), verifyCSRF, async (req, res) => {
 
 app.post('/upload', verifyLoggedIn, upload.single('file'), verifyCSRF, async (req, res) => {
     const file = req.file;
+    if (file.filename){}
     const diskName = file.filename;
     const originalName = file.originalname;
     const user = req.loggedInUser;
