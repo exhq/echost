@@ -6,7 +6,7 @@ import { join as joinPath } from "path";
 
 
 if (process.argv.length < 3) {
-    console.log`
+    console.log(`
 echost-manage <subcommand>
 
 AVAILABLE COMMANDS
@@ -16,7 +16,7 @@ AVAILABLE COMMANDS
     setpass <username> <password>   change a users password
     delfile <username> <filename>   delete a specific file
     cleanup                         delete orphaned files
-`
+`)
     process.exit(1)
 }
 
