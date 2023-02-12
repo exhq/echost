@@ -1,5 +1,8 @@
 {
     "openRegistrations": true,
     "usedPort": 8080,
-    "fileStorage": "temp"
+    "fileStorage": "temp",
+    "fileblacklist": [
+        ".html", ".amongus"
+    ] 
 }
