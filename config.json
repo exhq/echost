@@ -2,7 +2,25 @@
     "openRegistrations": true,
     "usedPort": 8080,
     "fileStorage": "temp",
-    "fileblacklist": [
-        ".html", ".amongus"
-    ] 
+    "mimeTypeWhiteList": [
+        "image/png",
+        "image/jpeg",
+        "image/bmp",
+        "video/mpeg",
+        "image/gif",
+        "application/json",
+        "audio/midi",
+        "audio/mpeg",
+        "video/mp4",
+        "audio/ogg",
+        "video/ogg",
+        "application/pdf",
+        "image/svg+xml",
+        "image/tiff",
+        "text/plain",
+        "audio/wav",
+        "audio/webm",
+        "video/webm",
+        "image/webp"
+    ]
 }

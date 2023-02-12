@@ -6,10 +6,10 @@ import { nanoid } from 'nanoid';
 import { DatabaseHandler } from './database.js'
 import bcrypt from 'bcrypt';
 import { default as cookieParser } from 'cookie-parser';
-import { default as echostConfig } from './config.js';
+import config, { default as echostConfig } from './config.js';
 import multer from 'multer';
 import { createReadStream, existsSync } from 'fs';
-
+import { lookup as mimeLookup } from 'mime-types';
 
 
 const usedport = echostConfig.usedPort;
@@ -100,7 +100,7 @@ app.post('/logout', upload.none(), verifyCSRF, async (req, res) => {
 
 app.post('/upload', verifyLoggedIn, upload.single('file'), verifyCSRF, async (req, res) => {
     const file = req.file;
-    if (file.filename){}
+    if (file.filename) { }
     const diskName = file.filename;
     const originalName = file.originalname;
     const user = req.loggedInUser;
@@ -108,18 +108,23 @@ app.post('/upload', verifyLoggedIn, upload.single('file'), verifyCSRF, async (re
     res.redirect(`/file/${user}/${originalName}`);
 });
 
-
-app.get('/file/:user/:file', async (req, res) => {
+const fileDisplay: RequestHandler = async (req, res) => {
     const { user, file } = req.params;
     const path = await database.getPathForFileName(user, file);
     if (existsSync(`${echostConfig.fileStorage}/${path}`)) {
+        const mimeType = mimeLookup(file);
+        if (mimeType && config.mimeTypeWhiteList.includes(mimeType)) {
+            res.header("Content-Type", mimeType)
+        } else {
+            res.header("Content-Type", "application/octet-stream")
+        }
         createReadStream(`${echostConfig.fileStorage}/${path}`).pipe(res)
     } else {
         res.status(404)
         res.header("Content-Type", "text/plain")
         res.end("Not found")
     }
-})
+};
 
 app.get('/', (req, res) => {
     res.setHeader('content-type', 'text/html')
@@ -137,4 +142,7 @@ app.get('/faq', (req, res) => {
     res.end(faqTemplate({}));
 });
 app.use(express.static('static'))
+app.get('/file/:user/:file', fileDisplay);
+app.get('/:user/:file', fileDisplay)
+
 app.listen(usedport, () => console.log('Started with port ' + usedport));

@@ -4,4 +4,5 @@ export default config as {
     openRegistrations: boolean,
     usedPort: number,
     fileStorage: string,
+    mimeTypeWhiteList: string[],
 };
