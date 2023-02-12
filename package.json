@@ -13,7 +13,8 @@
 	"type": "module",
 	"scripts": {
 		"start": "ts-node --esm index.ts",
-		"watch": "nodemon"
+		"watch": "nodemon",
+		"manage": "ts-node --esm manage.ts"
 	},
 	"name": "echost",
 	"module": "system",

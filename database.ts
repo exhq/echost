@@ -59,6 +59,15 @@ export class DatabaseHandler {
         return row['path'];
     }
 
+    async findOwnerByPath(path: string): Promise<{ owner: string, filename: string } | null> {
+        let row = await this.database.get(
+            "SELECT owner, filename FROM files WHERE path = ?",
+            [path]
+        )
+        if (!row) return null;
+        return { owner: row['owner'], filename: row['filename'] }
+    }
+
     async getPasswordHash(username: string): Promise<string | null> {
         let row = await this.database.get(
             "SELECT passwordHash FROM users WHERE username = ?;",
@@ -68,6 +77,31 @@ export class DatabaseHandler {
             return null;
         }
         return row['passwordHash'];
+    }
+
+    async deleteFileByName(owner: string, filename: string): Promise<void> {
+        await this.database.run(
+            "DELETE FROM files WHERE owner = ? AND filename = ?;",
+            [owner, filename]
+        );
+    }
+
+    async setPasswordHash(username: string, passwordHash: string): Promise<void> {
+        await this.database.run(
+            "UPDATE users SET passwordHash = ? WHERE username = ?;",
+            [passwordHash, username]
+        );
+    }
+
+    async deleteUser(username: string): Promise<void> {
+        await this.database.run(
+            "DELETE FROM users WHERE username = ?;",
+            [username]
+        )
+        await this.database.run(
+            "DELETE FROM files WHERE owner = ?;",
+            [username]
+        );
     }
 
 
