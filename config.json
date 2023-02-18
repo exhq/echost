@@ -22,5 +22,6 @@
         "audio/webm",
         "video/webm",
         "image/webp"
-    ]
+    ],
+    "defaultUser": "echo"
 }

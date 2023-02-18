@@ -5,4 +5,5 @@ export default config as {
     usedPort: number,
     fileStorage: string,
     mimeTypeWhiteList: string[],
+    defaultUser: string,
 };

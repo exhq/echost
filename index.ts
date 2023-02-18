@@ -10,6 +10,7 @@ import config, { default as echostConfig } from './config.js';
 import multer from 'multer';
 import { createReadStream, existsSync } from 'fs';
 import { lookup as mimeLookup } from 'mime-types';
+import { fileURLToPath } from 'url';
 
 
 const usedport = echostConfig.usedPort;
@@ -113,7 +114,8 @@ app.post('/upload', verifyLoggedIn, upload.single('file'), verifyCSRF, async (re
 });
 
 const fileDisplay: RequestHandler = async (req, res) => {
-    const { user, file } = req.params;
+    const { file } = req.params;
+    const user = 'user' in req.params ? req.params.user : echostConfig.defaultUser;
     const path = await database.getPathForFileName(user, file);
     if (existsSync(`${echostConfig.fileStorage}/${path}`)) {
         const mimeType = mimeLookup(file);
@@ -147,6 +149,7 @@ app.get('/faq', (req, res) => {
 });
 app.use(express.static('static'))
 app.get('/file/:user/:file', fileDisplay);
-app.get('/:user/:file', fileDisplay)
+app.get('/:user/:file', fileDisplay);
+app.get('/:file', fileDisplay);
 
 app.listen(usedport, () => console.log('Started with port ' + usedport));
