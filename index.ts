@@ -110,9 +110,17 @@ app.post('/upload', verifyLoggedIn, upload.single('file'), verifyCSRF, async (re
     const originalName = file.originalname;
     const user = req.loggedInUser;
     await database.createFile(user, originalName, diskName);
-    res.redirect(`/file/${user}/${originalName}`);
-});
+    
+    const link = `/file/${user}/${originalName}`; 
+    
+    res.send(`
+      <script>
+        alert("${req.protocol}://${req.get('host')}${link}/");
+      </script>
+    `);
 
+    
+  });
 const fileDisplay: RequestHandler = async (req, res) => {
     const { file } = req.params;
     const user = 'user' in req.params ? req.params.user : echostConfig.defaultUser;
